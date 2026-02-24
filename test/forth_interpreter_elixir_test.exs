@@ -171,8 +171,6 @@ defmodule ForthInterpreterTest do
   end
 
   describe "comparison operations" do
-    @describetag :skip
-
     test "= returns -1 for equal values" do
       assert eval("5 5 =") == {:ok, [-1]}
     end
@@ -278,7 +276,6 @@ defmodule ForthInterpreterTest do
   end
 
   describe "user-defined words" do
-    @describetag :skip
     test "can define and use custom word" do
       assert eval(": double dup + ; 5 double") == {:ok, [10]}
     end
@@ -357,7 +354,6 @@ defmodule ForthInterpreterTest do
   end
 
   describe "real world examples" do
-    @describetag :skip
     test "calculating area: (width * height)" do
       assert eval("5 3 *") == {:ok, [15]}
     end
