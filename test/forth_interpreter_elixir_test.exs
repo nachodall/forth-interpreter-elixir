@@ -211,7 +211,6 @@ defmodule ForthInterpreterTest do
   end
 
   describe "logical operations" do
-    @describetag :skip
     test "and returns -1 when both are true" do
       assert eval("-1 -1 and") == {:ok, [-1]}
     end
@@ -306,7 +305,6 @@ defmodule ForthInterpreterTest do
   end
 
   describe "additional stack operations" do
-    @describetag :skip
     test "nip removes second value" do
       assert eval("1 2 nip") == {:ok, [2]}
     end
@@ -382,7 +380,6 @@ defmodule ForthInterpreterTest do
   end
 
   describe "initial stack state" do
-    @describetag :skip
     test "evaluates with non-empty initial stack" do
       assert eval("1 +", [5]) == {:ok, [6]}
     end
