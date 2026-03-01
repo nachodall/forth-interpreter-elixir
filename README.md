@@ -1,40 +1,66 @@
-# Forth Interpreter
+# Forth Interpreter (Elixir)
 
-An implementation of a Forth interpreter in Elixir, developed for the LambdaClass Engineering Residency.
+This project is a full-featured **Forth interpreter** built with **Elixir**, integrated into a **Phoenix LiveView** application with **PostgreSQL** database persistence.
 
-## Dependencies
 
-- Elixir ~> 1.18.2
-- Erlang/OTP ~> 27.2.1
 
-## Setup and Compilation
+## Overview
 
-To fetch dependencies and compile the project, run:
+The application allows users to write Forth programs, evaluate them in real-time, and automatically persist the execution history in a database.
 
-    make setup
-    make build
+### Architecture
+* **Core Logic:** Pure Elixir module (`Forth.eval/2`) handling token parsing, stack operations, and strict error handling (e.g., stack underflows, division by zero). Cleanly integrated into the application's domain logic in `lib/forth_interpreter_elixir/forth.ex`.
+* **Web Interface:** A reactive single-page application built with **Phoenix LiveView** for instant user feedback.
+* **Persistence:** **PostgreSQL** database integrated via **Ecto** to store and display the history of all evaluations.
 
-## Testing
+### Supported Language Features
+* **Integer Arithmetic:** `+`, `-`, `*`, `/`
+* **Stack Manipulation:** `DUP`, `DROP`, `SWAP`, `OVER`
+* **Custom Words:** Definition of new words using the standard syntax (`: word-name definition ;`).
 
-To execute the test suite:
+---
 
-    make test
+## 1. Prerequisites
+Ensure you have the following installed on your system:
+* **Elixir** (1.18 or later)
+* **Erlang/OTP** (27 or later)
+* **PostgreSQL** (Running locally)
 
-## Usage
+## 2. Compilation & Setup
+Before running the application for the first time, you must install dependencies and setup the database.
 
-You can interact with the interpreter using the Elixir REPL (IEx) via the provided Makefile target:
+```bash
+# Install dependencies
+mix deps.get
 
-    make console
+# Setup the database (create and migrate)
+# Note: Ensure your DB credentials in config/dev.exs are correct
+mix ecto.setup
+```
+## 3. Running the Application
 
-Inside the interactive shell, evaluate expressions using Forth.eval/1:
+To start the Phoenix LiveView interface:
+```Bash
+# Start the server
+mix phx.server
+```
+Once started, you can access the interface at http://localhost:4000.
 
-    iex> Forth.eval(": square dup * ; 5 square")
-    {:ok, [25]}
+## 4. Running Tests
 
-## Supported Features
+The project includes a comprehensive test suite for both the core Forth logic and the web components.
+Bash
+```Bash
+# Run all tests
+mix test
+```
 
-- Arithmetic operations: +, -, *, /
-- Stack manipulations: dup, drop, swap, over, rot, nip, tuck
-- Double operations: 2dup, 2drop, 2swap, 2over
-- Logic and comparison: =, >, <, and, or, not, invert
-- User-defined words: Support for recursive evaluation and dictionary state using : and ;
+## 5. Using the Program
+
+    Input: Type your Forth code into the "Program Input" text area. (Example: 1 2 + 3 *)
+
+    Action: Click the Evaluate button to process the code.
+
+    Results: The current result (stack state or error message) will appear immediately below the input area.
+
+    History: Every evaluation is automatically saved to the PostgreSQL database and displayed in the history table at the bottom of the page.
