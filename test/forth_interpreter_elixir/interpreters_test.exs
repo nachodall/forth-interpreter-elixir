@@ -36,14 +36,19 @@ defmodule ForthInterpreterElixir.InterpretersTest do
       execution = execution_fixture()
       update_attrs = %{input: "some updated input", result: "some updated result"}
 
-      assert {:ok, %Execution{} = execution} = Interpreters.update_execution(execution, update_attrs)
+      assert {:ok, %Execution{} = execution} =
+               Interpreters.update_execution(execution, update_attrs)
+
       assert execution.input == "some updated input"
       assert execution.result == "some updated result"
     end
 
     test "update_execution/2 with invalid data returns error changeset" do
       execution = execution_fixture()
-      assert {:error, %Ecto.Changeset{}} = Interpreters.update_execution(execution, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Interpreters.update_execution(execution, @invalid_attrs)
+
       assert execution == Interpreters.get_execution!(execution.id)
     end
 

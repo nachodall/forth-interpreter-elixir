@@ -82,7 +82,11 @@ defmodule ForthInterpreterElixir.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["compile", "tailwind forth_interpreter_elixir", "esbuild forth_interpreter_elixir"],
+      "assets.build": [
+        "compile",
+        "tailwind forth_interpreter_elixir",
+        "esbuild forth_interpreter_elixir"
+      ],
       "assets.deploy": [
         "tailwind forth_interpreter_elixir --minify",
         "esbuild forth_interpreter_elixir --minify",
